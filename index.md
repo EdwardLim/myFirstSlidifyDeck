@@ -1,17 +1,31 @@
 ---
 title       : Predict Car's Miles per Gallon (MPG) from Weight
 subtitle    : A Simple Shiny App
-author      : Luong The Vinh
-job         : Manager, Business Analytics
+author      : Edward Lim
+job         : Lobo
 framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
-highlighter : highlight.js  # {highlight.js, prettify, highlight}
-hitheme     : tomorrow      # 
-widgets     : bootstrap     # {mathjax, quiz, bootstrap}
-mode        : selfcontained # {standalone, draft}
+highlighter : highlight     # {highlight.js, prettify, highlight}
+hitheme     : default       # 
+widgets     : []            # {mathjax, quiz, bootstrap}
+mode        : standalone    # {standalone, draft}
 ---
 
-## Background: 1974 Motor Trend dataset
-Data on fuel consumption and 10 aspects of automobile design and performance for 32 automobiles (1973-74 models), e.g.:
+## Introduction
+This presentation is part of the Course Project for the Coursera Developing Data Products class. The peer assessed assignment has two parts.
+
+1. Shiny app
+2. R Presentation describing the Shiny app in 5 pages.
+
+The Shiny app is hosted on [ShinyApps.io](https://edwardlim.shinyapps.io/Coursera-DevelopingDataProducts).
+
+The R Presentation is available at [RPubs](http://rpubs.com/EdwardLim/Coursera-DevelopingDataProducts).
+
+Source code for ui.R and server.R files are available in my [GitHub repository](https://github.com/EdwardLim/Coursera-DevelopingDataProducts).
+
+---
+## mtcars Dataset
+The app uses the mtcars dataset which comes from the Motor Trend Car Road Tests (mtcars) dataset. The data was extracted from the 1974 Motor Trend US magazine, and comprises fuel consumption and 10 aspects of automobile design and performance for 32 automobiles (1973-74 models).
+
 
 ```r
 head(mtcars)
@@ -28,53 +42,18 @@ head(mtcars)
 ```
 
 ---
+## Using the MPGPredictor app
+To use the application, just input the following:
 
-## A Car's MPG Is Predominantly Determined by Its Weight
-Result from simple linear regression model of MPG on Weight:
+1. Weight of the car (in 1000 lbs)
+2. Horsepower of the car
+3. Number of cylinders in the car (4, 6 or 8)
+4. Transmission type of the car (Automatic or Manual)
 
-```r
-model <- lm(mpg ~ wt, mtcars)
-model
-```
+Click the Submit button
 
-```
-## 
-## Call:
-## lm(formula = mpg ~ wt, data = mtcars)
-## 
-## Coefficients:
-## (Intercept)           wt  
-##      37.285       -5.344
-```
-* In terms of Adjusted R Squared, Weight explains **0.7445939** (i.e. almost 3/4) of the variation in MPG
-
-* In terms of P-value, Weight is statistically highly significant
+The predicted MPG value for the car will be displayed in the corresponding output box in the main panel.
 
 ---
-
-## Shiny App: Predictive Model of MPG according to Weight
-
-```r
-illusWeight <- 3.3
-dataFrame <- as.data.frame(illusWeight)
-names(dataFrame) <- 'wt'
-predMPG <- predict(model, dataFrame)
-            
-plot(mpg ~ wt, mtcars, col = 'blue')
-title('MPG as an approximate linear function of Weight')
-abline(model, col = 'red', lwd = 3)
-abline(v = illusWeight)
-abline(h = predMPG)
-```
-
-![plot of chunk unnamed-chunk-3](assets/fig/unnamed-chunk-3-1.png) 
-
----
-
-## Shiny App: Link & How-to-Use
-
-* Go to weblink: https://luongthevinh.shinyapps.io/predictMPG/
-
-* Simply specify your car's weight using the input slider, and see the interactive graph show the predicted MPG
-
-* Have FUN!!!
+## MPGPredictor app screen
+![MPGPredictor Screen](MPGPredictor-Scr1.png)
